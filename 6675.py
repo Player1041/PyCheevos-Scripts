@@ -87,6 +87,7 @@ character = byte(0x0e3415)
 #0x24 - Chef Braveheart
 
 playerWin = (raceData >> dword(0xa0)) == recall() 
+playerFinish = (raceData >> dword(0xa0)) != 0x00
 
 resetToCountdown = (raceState == 0x03).with_hits(1)
 
@@ -322,16 +323,24 @@ def commonLogic(race: int):
         raceIndicator == race
         ]
 
-def unlocks2(race: int, condition: int, conditionAddress: int):
+def unlocks(race: int, con: int, conditionAddress: int, shouldMeasure: bool = False):
     address = (raceData >> byte(conditionAddress))
-    return [
-        (demoCheck).with_flag(measured_if),
-        (championship).with_flag(measured_if),
-        (raceIndicator == race).with_flag(measured_if),
-        (address.delta() == condition - 1),
-        (address == condition).with_flag(measured),
+    logic = [
+        (address.delta() == con - 1),
         raceState == 0x04
     ]
+    if shouldMeasure:
+        logic.insert(0, (demoCheck).with_flag(measured_if)) # type: ignore
+        logic.insert(1, (championship).with_flag(measured_if)) # type: ignore
+        logic.insert(2, (raceIndicator == race).with_flag(measured_if)) # type: ignore
+        logic.insert(4, (address == con).with_flag(measured))
+    else:
+        logic.insert(0, demoCheck) # type: ignore
+        logic.insert(1, championship) # type: ignore
+        logic.insert(2, (raceIndicator == race)) # type: ignore
+        logic.insert(4, (address == con))
+    return logic
+
 playerCheckpoint = (raceData >> byte(0xa4))
 playerLap = (raceData >> byte(0xb4))
 
@@ -376,8 +385,7 @@ for race in range(0x00, 0x0e):
     champAchievement = Achievement(achievementTitle(f"{order}_champ"), f"Win the {raceName(race)} race in Championship mode", 1)
     champAchievement.add_core(championshipAchievementLogic)
     mySet.add_achievement(champAchievement)
-    order += 1
-    
+    order += 1 
 
 # Unlocks
 
@@ -407,7 +415,6 @@ def garrisonUnlock():
     garrisonAchievement = Achievement(achievementTitle("mr_garrison"), "Unlock Mr. Garrison by being the only player to pass over each checkpoint with the trophy in Rally Days #2", 2)
     garrisonAchievement.add_core(garrisonUnlockLogic)
     mySet.add_achievement(garrisonAchievement)
-    
 
 # Pip
 def pipUnlock():
@@ -440,8 +447,7 @@ def pipUnlock():
 
     pipAchievement = Achievement(achievementTitle("pip"), "Unlock Pip by passing over only Checkpoints 1 and 4 with the trophy in Rally Days #2", 2)
     pipAchievement.add_core(pipUnlockLogic)
-    mySet.add_achievement(pipAchievement)
-    
+    mySet.add_achievement(pipAchievement)  
 
 # Bebe
 def bebeUnlock():
@@ -451,43 +457,41 @@ def bebeUnlock():
         playerWin,
         (unlockTimers.delta() < 120.0).with_flag(reset_if),
         resetToCountdown,
-        waitingOnWin()
+        *waitingOnWin()
     ]
 
     bebeAchievement = Achievement(achievementTitle("bebe"), "Unlock Bebe by losing without touching the cure in Cow Days", 2)
     bebeAchievement.add_core(bebeUnlockLogic)
     mySet.add_achievement(bebeAchievement)
     
-
 # Extra Skins
 def extraSkinsUnlock():
-    extraSkinsLogic = unlocks2(0x03, 0x03, 0xc8)
+    extraSkinsLogic = unlocks(0x03, 0x03, 0xc8, True)
     extraSkinsAchievement = Achievement(achievementTitle("extra_skins"), "Unlock the extra skins for The Boys and Chef by collecting all 3 Golden Cows in the Valentine's Day race", 2)
     extraSkinsAchievement.add_core(extraSkinsLogic)
     mySet.add_achievement(extraSkinsAchievement)
     
-
 # Tweek
 def tweekUnlock():
-    tweekUnlockLogic = unlocks2(0x04, 0x05, 0xc8)
+    tweekUnlockLogic = unlocks(0x04, 0x05, 0xc8, True)
     tweekAchievement = Achievement(achievementTitle("tweek"), "Unlock Tweek by using 5 caffeine boosts from the blue power up boxes in the Spring Cleaning race", 2)
     tweekAchievement.add_core(tweekUnlockLogic)
     mySet.add_achievement(tweekAchievement)
 
 def cartmanCopUnlock():
-    cartmanCopLogic = unlocks2(0x05, 0x05, 0xc0)
+    cartmanCopLogic = unlocks(0x05, 0x05, 0xc0, True)
     cartmanCopAchievement = Achievement(achievementTitle("cartman_cop"), "Unlock Cartman Cop by hitting Chicken Lover's bus 5 times with Salty Balls in the Read a Book Day race", 2)
     cartmanCopAchievement.add_core(cartmanCopLogic)
     mySet.add_achievement(cartmanCopAchievement)
 
 def skuzzlebuttUnlock():
-    skuzzlebuttLogic = unlocks2(0x06, 0x01, 0xc8)
+    skuzzlebuttLogic = unlocks(0x06, 0x01, 0xc8)
     skuzzlebuttAchievement = Achievement(achievementTitle("skuzzlebutt"), "Unlock Skuzzlebutt by collecting the Golden Cow during the Easter race", 2)
     skuzzlebuttAchievement.add_core(skuzzlebuttLogic)
     mySet.add_achievement(skuzzlebuttAchievement)
 
 def mrsBrovlofskiUnlock():
-    mrsBrovlofskiLogic = unlocks2(0x06, 0x01, 0xcc)
+    mrsBrovlofskiLogic = unlocks(0x06, 0x01, 0xcc)
     mrsBrovlofskiAchievement = Achievement(achievementTitle("mrs_broflovski"), "Unlock Mrs. Broflovski by collecting the Pie during the Easter Race", 2)
     mrsBrovlofskiAchievement.add_core(mrsBrovlofskiLogic)
     mySet.add_achievement(mrsBrovlofskiAchievement)
@@ -498,7 +502,7 @@ def msCartmanUnlock():
         raceOutcome,
         playerWin,
         resetToCountdown,
-        (playerCheckpoint).with_flag(trigger)
+        (playerCheckpoint).with_flag(trigger),
         (ai1Checkpoint != 0x00).with_flag(reset_if),
         (ai2Checkpoint != 0x00).with_flag(reset_if),
         (ai3Checkpoint != 0x00).with_flag(reset_if),
@@ -510,12 +514,76 @@ def msCartmanUnlock():
     msCartmanAchievement.add_core(msCartmanLogic)
     mySet.add_achievement(msCartmanAchievement)
 
-def NedUnlock():
-    nedLogic = unlocks2(0x09, 0x0c, 0xc8)
+def ikeUnlock():
+    ikeLogic = unlocks(0x08, 0x01, 0xc8)
+    ikeAchievement = Achievement(achievementTitle("ike"), "Unlock Ike by collecting the Golden Cow on the plane wing during the Memorial Day race", 2)
+    ikeAchievement.add_core(ikeLogic)
+    mySet.add_achievement(ikeAchievement)
+
+def visitorUnlock():
+    visitorLogic = unlocks(0x08, 0x01, 0xcc, True)
+    visitorAchievement = Achievement(achievementTitle("visitor"), "Unlock Visitor by collecting both Pies during the Memorial Day race", 2)
+    visitorAchievement.add_core(visitorLogic)
+    mySet.add_achievement(visitorAchievement)
+
+def nedUnlock():
+    nedLogic = [
+        (demoCheck).with_flag(measured_if),
+        (championship).with_flag(measured_if),
+        (raceIndicator == 0x09).with_flag(measured_if),
+        raceOutcome,
+        playerWin,
+        (raceData >> byte(0xc8) == 0x0c - 1),
+        (raceData >> byte(0xc8) >= 0x0c).with_flag(measured),
+        *waitingOnWin()
+    ]
     nedAchievement = Achievement(achievementTitle("ned"), "Unlock Ned by winning after using 12 Caffeine Boosts or Terrance Boosts during the Independence Day race", 2)
     nedAchievement.add_core(nedLogic)
     mySet.add_achievement(nedAchievement)
 
+def deathUnlock():
+    unlockCondition = (raceData >> byte(0xc8))
+    deathLogic = [
+        *commonLogic(0x0a),
+        raceOutcome,
+        playerWin,
+        unlockCondition == 0x00,
+        *waitingOnWin()
+    ]
+    deathAchievement = Achievement(achievementTitle("death"), "Unlock Death by winning while only delivering 4 Candies at once during the Halloween race", 2)
+    deathAchievement.add_core(deathLogic)
+    mySet.add_achievement(deathAchievement)
+
+def marvinUnlock():
+    marvinLogic = [
+        *commonLogic(0x0b),
+        playerFinish,
+        (playerCheckpoint != 0x00).with_flag(reset_if),
+        resetToCountdown,
+        *waitingOnWin()
+    ]
+    marvinAchievement = Achievement(achievementTitle("marvin"), "Unlock Marvin by losing without collecting any turkeys during the Thanksgiving race", 2)
+    marvinAchievement.add_core(marvinLogic)
+    mySet.add_achievement(marvinAchievement)
+
+def damienUnlock():
+    damienLogic = [
+        *commonLogic(0x0d),
+        raceOutcome,
+        playerWin,
+        (raceData >> byte(0xc4) != 0x00).with_flag(reset_if),
+        resetToCountdown,
+        *waitingOnWin()
+    ]
+    damienAchievement = Achievement(achievementTitle("damien"), "Unlock Damien by winning without letting another player pick up the key during the Millenium New Years Eve race", 2)
+    damienAchievement.add_core(damienLogic)
+    mySet.add_achievement(damienAchievement)
+
+def tapUnlock():
+    tapLogic = unlocks(0x0c, 0x04, 0xc8, True)
+    tapAchievement = Achievement(achievementTitle("terrance_phillip"), "Unlock Terrance & Phillip by collecting all 4 Golden Cows during the Christmas race", 2)
+    tapAchievement.add_core(tapLogic)
+    mySet.add_achievement(tapAchievement)
 
 
 
@@ -529,7 +597,13 @@ cartmanCopUnlock()
 skuzzlebuttUnlock()
 mrsBrovlofskiUnlock()
 msCartmanUnlock()
-NedUnlock()
+ikeUnlock()
+visitorUnlock()
+nedUnlock()
+deathUnlock()
+marvinUnlock()
+damienUnlock()
+tapUnlock()
 
 # Unlocks based on ++0xc0
 # Garrison
@@ -599,4 +673,4 @@ intro.add_alt(introAlts(0x06))
 mySet.add_achievement(intro)
 
 
-mySet.save("D:\\RetroAchievements\\RALibretro\\RACache\\Data")
+mySet.save()
