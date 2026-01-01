@@ -1,4 +1,5 @@
 ### Imports ###
+from pathlib import Path
 import core.helpers as helpers
 from core.helpers import *
 from core.constants import *
@@ -96,6 +97,7 @@ unlockTimers = (raceData >> float32(0xb0))
 rallyDays2Checkpoint = (raceData >> byte(0x94))
 
 raceIndicator = byte(0x0e3152)
+trackIndicator = byte(0x0e3151)
 def raceName(race: int):
     match race:
         case 0x00:
@@ -133,6 +135,55 @@ def raceName(race: int):
         case _:
             return "Unknown"
 
+def trackName(track: int, forDesc: bool = False):
+    if forDesc:
+        match track:
+            case 0x00:
+                return "City"
+            case 0x01:
+                return "Forest"
+            case 0x02:
+                return "Big Gay Al's"
+            case 0x03:
+                return "Volcano"
+            case 0x04:
+                return "Mountain"
+            case 0x05:
+                return "Farm"
+            case 0x06:
+                return "Sewer"
+            case 0x07:
+                return "Carnival"
+            case 0x08:
+                return "Gridiron"
+            case 0x09:
+                return "Random"
+            case _:
+                return "Unknown"
+    else:
+        match track:
+            case 0x00:
+                return "City"
+            case 0x01:
+                return "Forest"
+            case 0x02:
+                return "Big Gay Al's"
+            case 0x03:
+                return "Volcano"
+            case 0x04:
+                return "Mountain"
+            case 0x05:
+                return "Farm"
+            case 0x06:
+                return "Sewer"
+            case 0x07:
+                return "Carnival"
+            case 0x08:
+                return "Gridiron"
+            case 0x09:
+                return "Random"
+            case _:
+                return "Unknown"
 def achievementTitle(id: str):
     match id:
         case "1_champ":
@@ -316,11 +367,26 @@ def achievementTitle(id: str):
         case _:
             return f"Missing Name"
 
-def commonLogic(race: int):
+def commonChampionshipLogic(race: int):
     return [
         demoCheck, 
         championship, 
         raceIndicator == race
+        ]
+
+def commonMiniChampionshipLogic(track: int):
+    return [
+        demoCheck, 
+        miniChampionship, 
+        trackIndicator == track
+        ]
+
+def commonArcadeLogic(race: int, track: int):
+    return [
+        demoCheck, 
+        arcadeRace, 
+        raceIndicator == race,
+        trackIndicator == track
         ]
 
 def unlocks(race: int, con: int, conditionAddress: int, shouldMeasure: bool = False):
@@ -357,13 +423,13 @@ ai5Lap = (raceData >> byte(0x190))
 
 def waitingOnWin():
     return [
-        raceState.delta() == 0x04,
+        (raceState.delta() == 0x04),
         (raceState == 0x05).with_flag(trigger)
     ]
 
 credits = byte(0x0e3251)
 creditIncrease = [
-    Condition(credits.delta()).with_flag(add_source),
+    credits.delta().with_flag(add_source),
     Condition(0x01).with_flag(add_source),
     Condition(0x00 == credits).with_flag(trigger) 
 ]
@@ -375,7 +441,7 @@ mySet = AchievementSet(game_id=6675, title="South Park Rally")
 order = 1
 for race in range(0x00, 0x0e):
     championshipAchievementLogic = [
-        *commonLogic(race),
+        *commonChampionshipLogic(race),
         raceOutcome,
         playerWin,
         raceState.delta() == 0x04,
@@ -387,12 +453,29 @@ for race in range(0x00, 0x0e):
     mySet.add_achievement(champAchievement)
     order += 1 
 
+# Mini Championship
+# Championship
+order = 1
+for race in range(0x00, 0x08):
+    miniChampionshipAchievementLogic = [
+        *commonMiniChampionshipLogic(race),
+        raceOutcome,
+        playerWin,
+        raceState.delta() == 0x04,
+        raceState == 0x05,
+    ]
+
+    champAchievement = Achievement(achievementTitle(f"{order}_mini"), f"Win the {raceName(race)} race in Mini Championship mode", 1)
+    champAchievement.add_core(championshipAchievementLogic)
+    mySet.add_achievement(champAchievement)
+    order += 1 
+
 # Unlocks
 
 # Garrison
 def garrisonUnlock():
     garrisonUnlockLogic = [
-        *commonLogic(0x01),
+        *commonChampionshipLogic(0x01),
         raceOutcome,
         playerWin.with_flag(trigger),
         resetToCountdown
@@ -419,7 +502,7 @@ def garrisonUnlock():
 # Pip
 def pipUnlock():
     pipUnlockLogic = [
-        *commonLogic(0x01),
+        *commonChampionshipLogic(0x01),
         raceOutcome,
         playerWin.with_flag(trigger),
         resetToCountdown
@@ -452,7 +535,7 @@ def pipUnlock():
 # Bebe
 def bebeUnlock():
     bebeUnlockLogic = [
-        *commonLogic(0x02),
+        *commonChampionshipLogic(0x02),
         raceOutcome,
         playerWin,
         (unlockTimers.delta() < 120.0).with_flag(reset_if),
@@ -498,7 +581,7 @@ def mrsBrovlofskiUnlock():
 
 def msCartmanUnlock():
     msCartmanLogic = [
-        *commonLogic(0x07),
+        *commonChampionshipLogic(0x07),
         raceOutcome,
         playerWin,
         resetToCountdown,
@@ -533,7 +616,6 @@ def nedUnlock():
         (raceIndicator == 0x09).with_flag(measured_if),
         raceOutcome,
         playerWin,
-        (raceData >> byte(0xc8) == 0x0c - 1),
         (raceData >> byte(0xc8) >= 0x0c).with_flag(measured),
         *waitingOnWin()
     ]
@@ -544,7 +626,7 @@ def nedUnlock():
 def deathUnlock():
     unlockCondition = (raceData >> byte(0xc8))
     deathLogic = [
-        *commonLogic(0x0a),
+        *commonChampionshipLogic(0x0a),
         raceOutcome,
         playerWin,
         unlockCondition == 0x00,
@@ -556,7 +638,7 @@ def deathUnlock():
 
 def marvinUnlock():
     marvinLogic = [
-        *commonLogic(0x0b),
+        *commonChampionshipLogic(0x0b),
         playerFinish,
         (playerCheckpoint != 0x00).with_flag(reset_if),
         resetToCountdown,
@@ -568,7 +650,7 @@ def marvinUnlock():
 
 def damienUnlock():
     damienLogic = [
-        *commonLogic(0x0d),
+        *commonChampionshipLogic(0x0d),
         raceOutcome,
         playerWin,
         (raceData >> byte(0xc4) != 0x00).with_flag(reset_if),
@@ -586,7 +668,7 @@ def tapUnlock():
     mySet.add_achievement(tapAchievement)
 
 
-
+# Character Unlocks
 
 garrisonUnlock()
 pipUnlock()
@@ -605,42 +687,13 @@ marvinUnlock()
 damienUnlock()
 tapUnlock()
 
-# Unlocks based on ++0xc0
-# Garrison
-# Pip
-# Cartman Cop
-# Bebe
-
-# Unlocks based on ++0xc4
-# Damien
-
-# Unlocks based on ++0xc8
-# Cheat Sheet
-# Extra Skins
-# Tweek
-# Skuzzlebutt
-# Ike
-# Ned
-# Death
-
-
-
-# Unlocks based on ++0xcc
-# Ms. Brovlofski
-# Visitor
-
-
-# Unlocks that are wack as fuck and are unique
-# Ms. Cartman
-# Starvin' Marvin
-
 
 
 # Credit Achievements
 order = 1
 for race in range(0x00, 0x0e):
     creditAchievementLogic = [
-        *commonLogic(race),
+        *commonChampionshipLogic(race),
         raceState == 0x04,
         *creditIncrease,
     ]
@@ -672,5 +725,12 @@ intro.add_alt(introAlts(0x05))
 intro.add_alt(introAlts(0x06))
 mySet.add_achievement(intro)
 
+laptopPath = Path("D:\\RetroAchievements\\RALibretro\\RACache\\Data")
+pcPath = Path("D:\\Games\\Emulation\\RetroAchievements\\RALibretro\\RACache\\Data")
 
-mySet.save()
+if laptopPath.exists():
+    mySet.save(laptopPath)
+elif pcPath.exists():
+    mySet.save(pcPath)
+else:
+    mySet.save()
