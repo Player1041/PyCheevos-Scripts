@@ -1,7 +1,7 @@
 ### Imports ###
 from pathlib import Path
 import core.helpers as helpers
-from core.helpers import *
+from core.helpers import *  
 from core.constants import *
 from core.condition import Condition
 from models.set import AchievementSet
@@ -431,8 +431,8 @@ def waitingOnWin():
 credits = byte(0x0e3251)
 creditIncrease = [
     credits.delta().with_flag(add_source),
-    Condition(0x01).with_flag(add_source),
-    Condition(0x00 == credits).with_flag(trigger) 
+    value(0x01).with_flag(add_source),
+    (value(0x00) == credits).with_flag(trigger) 
 ]
 ### Initialize Set ###
 mySet = AchievementSet(game_id=6675, title="South Park Rally")
@@ -442,10 +442,10 @@ mySet = AchievementSet(game_id=6675, title="South Park Rally")
 order = 1
 for race in range(0x00, 0x0e):
     championshipAchievementLogic = [
-        *commonChampionshipLogic(race),
+        commonChampionshipLogic(race),
         raceOutcome,
         playerWin,
-        *waitingOnWin()
+        waitingOnWin()
     ]
 
     champAchievement = Achievement(achievementTitle(f"{order}_champ"), f"Win the {raceName(race)} race in Championship mode", 1)
@@ -459,10 +459,10 @@ raceOrder = [0x07, 0x00, 0x05, 0x02, 0x06, 0x01, 0x04, 0x03]
 order = 1
 for race in raceOrder:
     miniChampionshipAchievementLogic = [
-        *commonMiniChampionshipLogic(race),
+        commonMiniChampionshipLogic(race),
         raceOutcome,
         playerWin,
-        *waitingOnWin(),
+        waitingOnWin(),
     ]
 
     miniChampAchievement = Achievement(achievementTitle(f"{order}_mini"), f"Win the race {trackName(race, True)} in Mini Championship mode", 1)
@@ -472,23 +472,24 @@ for race in raceOrder:
 
 # Mini Championship - Beat my Time
 # Carnival, City Farm, BGA, Sewers, Forest, Mountain, Volcano
-raceOrder = [0x07, 0x00, 0x05, 0x02, 0x06, 0x01, 0x04, 0x03]
+miniChampRaceOrder = [0x07, 0x00, 0x05, 0x02, 0x06, 0x01, 0x04, 0x03]
 timesToBeat = [126.71, 168.57, 82.07, 113.07, 218.18, 113.07, 157.47, 135.60]
 timesToBeatDesc = ["2:06.72", "2:48.58", "1:22.08", "1:53.08", "3:38.19", "2:15.61", "2:37.48", "1:53.08"]
 order = 1
 raceTime = (raceData >> float32(0x3c))
-for race in raceOrder:
-    print(timesToBeat[raceOrder.index(race)])
+for race in miniChampRaceOrder:
+    print(timesToBeat[miniChampRaceOrder.index(race)])
     timeTrialAchievementLogic = [
-        *commonMiniChampionshipLogic(race),
-        raceOutcome,
-        playerWin,
-        resetToCountdown,
-        *waitingOnWin(),
-        (raceTime > timesToBeat[raceOrder.index(race)]).with_flag(reset_if)
+        #commonMiniChampionshipLogic(race),
+        #raceOutcome,
+        #playerWin,
+        #resetToCountdown,
+        #waitingOnWin(),
+        #(raceTime > timesToBeat[raceOrder.index(race)]).with_flag(reset_if)
+        byte(0x02) == 0x02
     ]
-
-    timeTrialAchievement = Achievement(achievementTitle(f"{order}_dev"), f"Beat PS2Hagrid's time of {timesToBeatDesc[raceOrder.index(race)]} {trackName(race, True)} in Mini Championship mode", 1)
+    print(f"{achievementTitle(f"{order}_dev")} : Beat PS2Hagrid's time of {timesToBeatDesc[miniChampRaceOrder.index(race)]} {trackName(race, True)} in Mini Championship mode")
+    timeTrialAchievement = Achievement(achievementTitle(f"{order}_dev"), f"Beat PS2Hagrid's time of {timesToBeatDesc[miniChampRaceOrder.index(race)]} {trackName(race, True)} in Mini Championship mode", 1)
     timeTrialAchievement.add_core(timeTrialAchievementLogic)
     mySet.add_achievement(timeTrialAchievement)
     order += 1
@@ -498,7 +499,7 @@ for race in raceOrder:
 # Garrison
 def garrisonUnlock():
     garrisonUnlockLogic = [
-        *commonChampionshipLogic(0x01),
+        commonChampionshipLogic(0x01),
         raceOutcome,
         playerWin.with_flag(trigger),
         resetToCountdown
@@ -525,7 +526,7 @@ def garrisonUnlock():
 # Pip
 def pipUnlock():
     pipUnlockLogic = [
-        *commonChampionshipLogic(0x01),
+        commonChampionshipLogic(0x01),
         raceOutcome,
         playerWin.with_flag(trigger),
         resetToCountdown
@@ -558,12 +559,12 @@ def pipUnlock():
 # Bebe
 def bebeUnlock():
     bebeUnlockLogic = [
-        *commonChampionshipLogic(0x02),
+        commonChampionshipLogic(0x02),
         raceOutcome,
         playerWin,
         (unlockTimers.delta() < 120.0).with_flag(reset_if),
         resetToCountdown,
-        *waitingOnWin()
+        waitingOnWin()
     ]
 
     bebeAchievement = Achievement(achievementTitle("bebe"), "Unlock Bebe by losing without touching the cure in Cow Days", 2)
@@ -604,7 +605,7 @@ def mrsBrovlofskiUnlock():
 
 def msCartmanUnlock():
     msCartmanLogic = [
-        *commonChampionshipLogic(0x07),
+        commonChampionshipLogic(0x07),
         raceOutcome,
         playerWin,
         resetToCountdown,
@@ -614,7 +615,7 @@ def msCartmanUnlock():
         (ai3Checkpoint != 0x00).with_flag(reset_if),
         (ai4Checkpoint != 0x00).with_flag(reset_if),
         (ai5Checkpoint != 0x00).with_flag(reset_if),
-        *waitingOnWin()
+        waitingOnWin()
     ]
     msCartmanAchievement = Achievement(achievementTitle("ms_cartman"), "Unlock Ms. Cartman by being the only player to deliver lemonade during the Pink Lemonade race", 2)
     msCartmanAchievement.add_core(msCartmanLogic)
@@ -640,7 +641,7 @@ def nedUnlock():
         raceOutcome,
         playerWin,
         (raceData >> byte(0xc8) >= 0x0c).with_flag(measured),
-        *waitingOnWin()
+        waitingOnWin()
     ]
     nedAchievement = Achievement(achievementTitle("ned"), "Unlock Ned by winning after using 12 Caffeine Boosts or Terrance Boosts during the Independence Day race", 2)
     nedAchievement.add_core(nedLogic)
@@ -649,11 +650,11 @@ def nedUnlock():
 def deathUnlock():
     unlockCondition = (raceData >> byte(0xc8))
     deathLogic = [
-        *commonChampionshipLogic(0x0a),
+        commonChampionshipLogic(0x0a),
         raceOutcome,
         playerWin,
         unlockCondition == 0x00,
-        *waitingOnWin()
+        waitingOnWin()
     ]
     deathAchievement = Achievement(achievementTitle("death"), "Unlock Death by winning while only delivering 4 Candies at once during the Halloween race", 2)
     deathAchievement.add_core(deathLogic)
@@ -661,11 +662,11 @@ def deathUnlock():
 
 def marvinUnlock():
     marvinLogic = [
-        *commonChampionshipLogic(0x0b),
+        commonChampionshipLogic(0x0b),
         playerFinish,
         (playerCheckpoint != 0x00).with_flag(reset_if),
         resetToCountdown,
-        *waitingOnWin()
+        waitingOnWin()
     ]
     marvinAchievement = Achievement(achievementTitle("marvin"), "Unlock Marvin by losing without collecting any turkeys during the Thanksgiving race", 2)
     marvinAchievement.add_core(marvinLogic)
@@ -673,12 +674,12 @@ def marvinUnlock():
 
 def damienUnlock():
     damienLogic = [
-        *commonChampionshipLogic(0x0d),
+        commonChampionshipLogic(0x0d),
         raceOutcome,
         playerWin,
         (raceData >> byte(0xc4) != 0x00).with_flag(reset_if),
         resetToCountdown,
-        *waitingOnWin()
+        waitingOnWin()
     ]
     damienAchievement = Achievement(achievementTitle("damien"), "Unlock Damien by winning without letting another player pick up the key during the Millenium New Years Eve race", 2)
     damienAchievement.add_core(damienLogic)
@@ -716,9 +717,9 @@ tapUnlock()
 order = 1
 for race in range(0x00, 0x0e):
     creditAchievementLogic = [
-        *commonChampionshipLogic(race),
+        commonChampionshipLogic(race),
         raceState == 0x04,
-        *creditIncrease,
+        creditIncrease,
     ]
 
     credAchievement = Achievement(achievementTitle(f"{order}_cred"), f"Collect the Extra Credit during the {raceName(race)} race in Championship mode", 1)
