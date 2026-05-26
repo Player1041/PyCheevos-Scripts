@@ -9,6 +9,7 @@ from pathlib import Path
 mySet = AchievementSet(game_id=0, title="Template")
 platform = "Wii"
 
+
 dolphinPath = Path("E:\\Dolphin-x64\\RACache\\Data")
 laptopPath = Path("D:\\RetroAchievements\\RALibretro\\RACache\\Data")
 pcPath = Path("D:\\Games\\Emulation\\RetroAchievements\\RALibretro\\RACache\\Data")
@@ -24,3 +25,4 @@ match platform:
             mySet.save(pcPath)
         else:
             mySet.save()
+ 

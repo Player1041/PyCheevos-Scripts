@@ -22,6 +22,29 @@ levels = [
 "Komoldo"
 ]
 
+cheats = [
+    (dword(0x417c58) >> dword(0x04) >> dword(0x1ca8) >> dword(0xb04) == 0x01), # out of game
+    (dword(0x417c40) >> dword(0x60) >> dword(0xaa8) >> dword(0x1a4) == 0x01),
+    (dword(0x417c4c) >> dword(0x18b4) >> dword(0x1a4) == 0x01),
+    (dword(0x41d12c) >> dword(0x1dc) == 0x01),
+    (dword(0x417c80) >> dword(0x1314) >> dword(0xd6c) >> dword(0x1a4) == 0x01)
+] 
+
+cheat_reset = reset_if(dword(0x01ed6363) == 0x00)
+in_level = (dword(0x00415350) == 0x01)
+
+def addCheat(logic, ach):
+    last_idx = len(cheats) - 1
+
+    for i, cheat in enumerate(cheats):
+        if i == last_idx:
+            logic.append(pause_if(cheat).with_hits(1))
+        else:
+            logic.append(or_next(cheat))
+    alt_logic = []
+    alt_logic.append(cheat_reset)
+    ach.add_alt(alt_logic)
+
 current_level = dword(0x0045b79c)
 ending_check = dword_be(0x004276ef)
 class SaveData:
@@ -245,6 +268,54 @@ class SaveData:
 
         return shop_bits.get(level.strip())
 
+    def eggs(self, level: str):
+        egg_addresses = ["0x0045ba3c", # Chimerum 1-8  (bit0 - bit7)
+                        "0x0045ba3d",  # Chimerum 9-10 (bit0 - bit1) | Bakuldo 1-6  (bit2 - bit7)
+                        "0x0045ba3e",  # Bakuldo  7-10 (bit0 - bit3) | Klonium 1-4  (bit4 - bit7)
+        ]   
+        area_bits = {
+            "Chimerum": {}, "Bakuldo":  {}, "Klonium":  {}, "Altus":    {},
+            "Desollem": {}, "Koradus":  {}, "Medoozum": {}, "Iridium":  {},
+            "Voidrem":  {}, "Komoldo":  {}, "Boss Eggs": {}
+        }
+    
+        for x in egg_addresses:
+            addr = int(x, 16)
+            match addr:
+
+                # 0x0045ba3c : Chimerum 1-8 (bit0-bit7)
+                case 0x0045ba3c:
+                    area_bits["Boss Eggs"][1]  = (lambda _x=addr: bit0(_x))
+                    area_bits["Boss Eggs"][2]  = (lambda _x=addr: bit1(_x))
+                    area_bits["Komoldo"][1]  = (lambda _x=addr: bit2(_x))
+                    area_bits["Boss Eggs"][3]  = (lambda _x=addr: bit3(_x))
+                    area_bits["Boss Eggs"][4]  = (lambda _x=addr: bit4(_x))
+                    area_bits["Komoldo"][2]  = (lambda _x=addr: bit5(_x))
+                    area_bits["Voidrem"][1]  = (lambda _x=addr: bit6(_x))
+                    area_bits["Iridium"][1]  = (lambda _x=addr: bit7(_x))
+    
+                # 0x0045ba3d : Chimerum 9-10 (bit0-bit1) | Bakuldo 1-6 (bit2-bit7)
+                case 0x0045ba3d:
+                    area_bits["Iridium"][2]  = (lambda _x=addr: bit0(_x))
+                    area_bits["Medoozum"][1] = (lambda _x=addr: bit1(_x))
+                    area_bits["Koradus"][1]   = (lambda _x=addr: bit2(_x))
+                    area_bits["Koradus"][2]   = (lambda _x=addr: bit3(_x))
+                    area_bits["Desollem"][1]   = (lambda _x=addr: bit4(_x))
+                    area_bits["Altus"][1]   = (lambda _x=addr: bit5(_x))
+                    area_bits["Altus"][2]   = (lambda _x=addr: bit6(_x))
+                    area_bits["Klonium"][1]   = (lambda _x=addr: bit7(_x))
+    
+                # 0x0045ba3e : Bakuldo 7-10 (bit0-bit3) | Klonium 1-4 (bit4-bit7)
+                case 0x0045ba3e:
+                    area_bits["Klonium"][2]   = (lambda _x=addr: bit0(_x))
+                    area_bits["Bakuldo"][1]   = (lambda _x=addr: bit1(_x))
+                    area_bits["Bakuldo"][2]   = (lambda _x=addr: bit2(_x))
+                    area_bits["Chimerum"][1]  = (lambda _x=addr: bit3(_x))
+
+    
+        key = level.strip().title()
+        return area_bits.get(key)
+            
 
 crystal_gems = {
     "Chimerum": ("Chimerum", "Collect all 10 Crystal Gems in Chimerum"),
@@ -268,6 +339,13 @@ shop_items = {
     "Camouflage":     ("Camouflages", "Purchase the both of the Extra Camouflages", 3),
 }
 
+hagrid_progression = {  
+    "Koradus":         ("Koradus", "Collect Eggs 11 and 12 in Koradus", 2),
+    "Medoozum":        ("Medoozum", "Collect Egg 14 in Medoozum", 1),
+    "Iridium":         ("Iridium", "Collect Eggs 15 and 16 in Iridium", 2),
+    "Voidrem":         ("Voidrem", "Collect Egg 18 in Voidrem", 1),
+    "Komoldo":         ("Komoldo", "Collect Eggs 19 and 20 in Komoldo", 2),
+}
 
 data = SaveData()
 
@@ -295,8 +373,7 @@ def gemCheevos():
 
         title, description = crystal_gems[level]
         ach = Achievement(title, description, points=5)
-        print(logic)
-        print("\n")
+        addCheat(logic, ach)
         ach.add_core(logic)
         mySet.add_achievement(ach)
 
@@ -323,8 +400,7 @@ def shopCheevos():
                 logic.append(add_source(bit))
 
         ach = Achievement(title, description, points=5)
-        print(logic)
-        print("\n")
+        addCheat(logic, ach)
         ach.add_core(logic)
         mySet.add_achievement(ach)
 
@@ -335,14 +411,65 @@ def hiddenEnding():
         logic.append(ending_check == 0x414c4c47)
 
         ach = Achievement("Cheesy Ending", "View the alternate ending by collecting all 100 Crystal Gems", points=5)
-        print(logic)
-        print("\n")
+        addCheat(logic, ach)
         ach.add_core(logic)
         mySet.add_achievement(ach)
-    
-gemCheevos()
+
+def progCheevos():
+    for key, (title, description, count) in hagrid_progression.items():
+        logic = []
+
+        egg_entries = list(data.eggs(key).items())
+        last_idx = len(egg_entries) - 1
+        level = 0
+        for x in levels:
+            if x == key:
+                level = levels.index(x)
+                break
+        logic.append(in_level)
+        logic.append(current_level == level)
+
+        for i, (idx, fn) in enumerate(egg_entries):
+            bit = fn()
+            if last_idx == 0:
+                logic.append(bit > bit.delta())
+            else:
+                if i == last_idx:
+                    logic.append(bit.delta() == (count - 1))
+                else:
+                    logic.append(add_source(bit.delta()))
+        for i, (idx, fn) in enumerate(egg_entries):
+            bit = fn()
+            if last_idx == 0:
+                pass
+            else:
+                if i == last_idx:
+                    logic.append(bit == count)
+                else:
+                    logic.append(add_source(bit))
+
+        ach = Achievement(title, description, points=5)
+        addCheat(logic, ach)
+        ach.add_core(logic)
+        mySet.add_achievement(ach)
+
+def ending():
+    logic = []
+
+    logic.append(ending_check.delta() != 0x454e4447)
+    logic.append(ending_check == 0x454e4447)
+
+    ach = Achievement("Ending", "Defeat Looger in Looger's Stronghold and beat the game", points=5)
+    addCheat(logic, ach)
+    ach.add_core(logic)
+    mySet.add_achievement(ach)
+
+progCheevos()
+ending()
 shopCheevos()
+gemCheevos()
 hiddenEnding()
+
 
 dolphinPath = Path("E:\\Dolphin-x64\\RACache\\Data")
 pcsx2Path = Path("D:\\Games\\Emulation\\Emulators\\PCSX2\\RACache\\Data")
