@@ -41,45 +41,45 @@ extras = {
 }
 
 special_clears = {
-    "1-1": ("Easy Going",                     "Clear \"1-1 Ease\" with a stage score of 13,000 points or more", 3),
-    "1-5": ("Hole In One",                    "Clear \"1-5 Flippers\" without pressing the switch", 10),
-    "1-6": ("Skipped A Beat",                 "Clear \"1-6 Pulse\" without pressing any switches", 5),
-    "1-7": ("Shifty Bananas",                 "Clear \"1-7 Slopeshift\" after collecting every banana", 3),
-    "1-10": ("No Margin For Error",           "Clear \"1-10 Margin\" in 5.5 seconds or less", 5),
-    "2-3": ("Equipment Failure",              "Clear \"2-3 Landing Gear\" without entering more than 1 wormhole", 5),
-    "2-4": ("Optimal Bounce",                 "Clear \"2-4 Parkour\" without pressing the switch", 3),
-    "2-6": ("Speed Skating",                  "Clear \"2-6 Kickflip\" in 10 seconds or less", 4),
-    "2-10": ("Big Monkey",                    "Clear \"2-10 Shrink Ray\" without entering more than 3 wormholes", 5),
-    "3-1": ("Cycle Of Banana",                "Clear \"3-1 Cycle Hit\" with all 4 banana bunches collected", 5),
-    "3-5": ("Misalignment",                   "Clear \"3-5 Aligner\" without collecting any bananas", 5),
-    "3-7": ("Extra Life",                     "Clear \"3-7 Ringfield\" with over 100 bananas collected", 5),
-    "3-9": ("Victory Royale",                 "Clear \"3-9 Battle Royale\" after hitting all 4 play switches", 5),
-    "4-1": ("Cutting Through",                "Clear \"4-1 Mandoline\" with a stage score of 11,000 points or more", 5),
-    "4-2": ("Tightrope Tug Timing",           "Clear \"4-2 Tug\" after taking the thin path", 5),
-    "4-6": ("King Of Swing",                  "Clear \"4-6 Catenary\" after collecting all bananas", 5),
-    #"4-8": ("Button Bouncer",                 "On \"4-8 Turbine\", hit all 3 switches within 5 seconds of each other", 5),
-    "5-3": ("Trampoline Technique",           "Clear \"5-3 Jumpplex\" in 15 seconds or less", 5),
-    "5-6": ("Bring It Around Town",           "Clear \"5-6 Rotary\" with all 5 banana bunches collected", 3),
-    "5-8": ("Bullseye",                       "Clear \"5-8 Range\" going over 400mph", 10),
-    "5-9": ("Gonna Miss My Flight",           "Clear \"5-9 Departure\" in 30 seconds or less", 5),
-    "6-3": ("Rookie Mistake",                 "Clear \"6-3 Rook\" without collecting any bananas", 10),
-    "6-4": ("Rigid Ramps",                    "Clear \"6-4 Rigidify\" with both banana bunches collected", 5),
-    "6-6": ("Pyramid Jumps",                  "Clear \"6-6 Pyramid Run\" in 7 seconds or less", 5),
-    "6-7": ("No Assembly Required",           "Clear \"6-7 Assembly\" without pressing any switches", 5),
+    #"1-1": ("Easy Going",                     "Clear \"1-1 Ease\" with a stage score of 13,000 points or more", 3),
+    #"1-5": ("Hole In One",                    "Clear \"1-5 Flippers\" without pressing the switch", 10),
+    #"1-6": ("Skipped A Beat",                 "Clear \"1-6 Pulse\" without pressing any switches", 5),
+    #"1-7": ("Shifty Bananas",                 "Clear \"1-7 Slopeshift\" after collecting every banana", 3),
+    #"1-10": ("No Margin For Error",           "Clear \"1-10 Margin\" in 5.5 seconds or less", 5),
+    #"2-3": ("Equipment Failure",              "Clear \"2-3 Landing Gear\" without entering more than 1 wormhole", 5),
+    #"2-4": ("Optimal Bounce",                 "Clear \"2-4 Parkour\" without pressing the switch", 3),
+    #"2-6": ("Speed Skating",                  "Clear \"2-6 Kickflip\" in 10 seconds or less", 4),
+    #"2-10": ("Big Monkey",                    "Clear \"2-10 Shrink Ray\" without entering more than 3 wormholes", 5),
+    #"3-1": ("Cycle Of Banana",                "Clear \"3-1 Cycle Hit\" with all 4 banana bunches collected", 5),
+    #"3-5": ("Misalignment",                   "Clear \"3-5 Aligner\" without collecting any bananas", 5),
+    #"3-7": ("Extra Life",                     "Clear \"3-7 Ringfield\" with over 100 bananas collected", 5),
+    #"3-9": ("Victory Royale",                 "Clear \"3-9 Battle Royale\" after hitting all 4 play switches", 5),
+    #"4-1": ("Cutting Through",                "Clear \"4-1 Mandoline\" with a stage score of 11,000 points or more", 5),
+    #"4-2": ("Tightrope Tug Timing",           "Clear \"4-2 Tug\" after taking the thin path", 5),
+    #"4-6": ("King Of Swing",                  "Clear \"4-6 Catenary\" after collecting all bananas", 5),
+    ##"4-8": ("Button Bouncer",                 "On \"4-8 Turbine\", hit all 3 switches within 5 seconds of each other", 5),
+    #"5-3": ("Trampoline Technique",           "Clear \"5-3 Jumpplex\" in 15 seconds or less", 5),
+    #"5-6": ("Bring It Around Town",           "Clear \"5-6 Rotary\" with all 5 banana bunches collected", 3),
+    #"5-8": ("Bullseye",                       "Clear \"5-8 Range\" going over 400mph", 10),
+    #"5-9": ("Gonna Miss My Flight",           "Clear \"5-9 Departure\" in 30 seconds or less", 5),
+    #"6-3": ("Rookie Mistake",                 "Clear \"6-3 Rook\" without collecting any bananas", 10),
+    #"6-4": ("Rigid Ramps",                    "Clear \"6-4 Rigidify\" with both banana bunches collected", 5),
+    #"6-6": ("Pyramid Jumps",                  "Clear \"6-6 Pyramid Run\" in 7 seconds or less", 5),
+    #"6-7": ("No Assembly Required",           "Clear \"6-7 Assembly\" without pressing any switches", 5),
     "7-1": ("Leap Of Faith",                  "Clear \"7-1 Ikaruga\" collecting 1 banana at most", 5),
-    "7-3": ("Rule Of Thirds",                 "Clear \"7-3 Polarity\" before the stage flips over for a 4th time", 5),
-    "7-5": ("Perfect Cherry Blossom",         "Clear \"7-5 Phantasm\" with all bananas collected", 10),
-    "7-8": ("High Speed Castle Siege",        "Clear \"7-8 Siege\" going over 150mph", 3),
-    "8-2": ("Crossing The Streams",           "Clear \"8-2 Recoil\" with all 3 banana bunches collected", 5),
-    "8-4": ("Sharp Decline",                  "Clear \"8-4 Gradient Descent\" without entering a wormhole", 4),
-    "8-8": ("Potassium Pipe",                 "Clear \"8-8 Painted Pipe\" with a stage score of 6,500 points or more", 4),
+    #"7-3": ("Rule Of Thirds",                 "Clear \"7-3 Polarity\" before the stage flips over for a 4th time", 5),
+    #"7-5": ("Perfect Cherry Blossom",         "Clear \"7-5 Phantasm\" with all bananas collected", 10),
+    #"7-8": ("High Speed Castle Siege",        "Clear \"7-8 Siege\" going over 150mph", 3),
+    #"8-2": ("Crossing The Streams",           "Clear \"8-2 Recoil\" with all 3 banana bunches collected", 5),
+    #"8-4": ("Sharp Decline",                  "Clear \"8-4 Gradient Descent\" without entering a wormhole", 4),
+    #"8-8": ("Potassium Pipe",                 "Clear \"8-8 Painted Pipe\" with a stage score of 6,500 points or more", 4),
     "8-9": ("I Can Imagine Anything",         "Clear all 8 different layouts of \"8-9 Visionary\" in one session", 5),
-    "8-10": ("Quick Inspection",              "Clear \"8-10 Factory\" in 7 seconds or less", 5),
-    "9-2": ("Delicious Duo",                  "Clear \"9-2 Twisty Triad\" with both banana bunches collected", 5),
-    "9-6": ("Turbocharger",                   "Clear \"9-6 Axle\" with the fast forward switch active", 5),
-    "9-7": ("Banana Of the Colossus",         "Clear \"9-7 Colossus\" with all bananas collected", 10),
-    "10-7": ("Speeding Snake",                "Clear \"10-7 Ouroboros\" with the fast forward switch active", 10),
-    "MX-7": ("I'll Never Swallow My Pride!",  "Clear \"MX-7 Pride\" by taking the thinner path after the switch", 25),
+    #"8-10": ("Quick Inspection",              "Clear \"8-10 Factory\" in 7 seconds or less", 5),
+    #"9-2": ("Delicious Duo",                  "Clear \"9-2 Twisty Triad\" with both banana bunches collected", 5),
+    #"9-6": ("Turbocharger",                   "Clear \"9-6 Axle\" with the fast forward switch active", 5),
+    #"9-7": ("Banana Of the Colossus",         "Clear \"9-7 Colossus\" with all bananas collected", 10),
+    #"10-7": ("Speeding Snake",                "Clear \"10-7 Ouroboros\" with the fast forward switch active", 10),
+    #"MX-7": ("I'll Never Swallow My Pride!",  "Clear \"MX-7 Pride\" by taking the thinner path after the switch", 25),
 }
 
 mask = value(0x1fffffff)
@@ -105,6 +105,7 @@ stage_failed = (bit4(0x00553973) == 0x01)
 death_counter = dword_be(0x00969c80)
 switch_state = bit2(0x0056e36a)
 in_game = dword_be(0x5bc484)
+paused = bit3(0x005bc477)
 
 # Modes
 main_mode = (byte(0x0054df20) == 0x00)
@@ -359,7 +360,7 @@ def minimum_bananas_collected(mode, world, level, required_bananas):
 
     return logic
 
-def maximum_bananas_collected(mode, world, level, starting_time, max_bananas):
+def maximum_bananas_collected_old(mode, world, level, starting_time, max_bananas):
     logic = [
         *mode_check(mode),
         reset_level_check(world, level),
@@ -381,13 +382,30 @@ def maximum_bananas_collected(mode, world, level, starting_time, max_bananas):
 
     return logic
 
+def maximum_bananas_collected(mode, world, level, starting_time, max_bananas):
+    if max_bananas != 0:
+        max_bananas += 1
+    logic = [
+        *mode_check("non-challenge"),
+        reset_level_check(world, level),
+        reset_if(time == starting_time * 60),
+        (time.prior() == starting_time * 60).with_hits(1),
+        reset_if(bananas_remaining < bananas_remaining.delta()).with_hits(max_bananas),
+        trigger(stage_complete_delta),
+        trigger(stage_complete),
+        reset_if(stage_failed),
+        reset_if(time == 0x00)
+    ]
+
+    return logic
+
 def score_clear(mode, world, level, score_required):
     logic = [
         *mode_check(mode),
         level_check(world, level),
         and_next(level_score != 0xffffffff),
         trigger(level_score >= score_required),
-        trigger(bit4(goal_state.delta() == 0x00)),
+        trigger(bit4(goal_state).delta() == 0x00),
         trigger(bit4(goal_state) == 0x01),
         trigger(stage_complete),
         time != 0x00
@@ -473,7 +491,7 @@ def bananaless(mode, world, level, starting_time):
         *mode_check(mode),
         reset_level_check(world, level),
         (time == starting_time * 60).with_hits(1),
-        reset_if(bananas_collected > bananas_collected.delta()),
+        reset_if(bananas_remaining < bananas_remaining.delta()),
         trigger(stage_complete_delta),
         trigger(stage_complete),
         reset_if(time == 0x00)
@@ -566,7 +584,7 @@ def visionary(mode, world, level, starting_time):
 
     rll = bounding(
         -2.0, 2.0,
-        -1.0, 0.0,
+        -7.0, -6.0,
         -160.0, -156.0
     )
 
@@ -589,8 +607,9 @@ def visionary(mode, world, level, starting_time):
     for box in boxes:
         logic.extend(box)
         logic.append(and_next(stage_complete_delta))
-        logic.append(trigger(stage_complete).with_hits(1))
+        logic.append(add_hits(stage_complete).with_hits(1))
 
+    logic.append(measured(value(0x00) == value(0x01)).with_hits(8))
     return logic
 
 enigma_switch_locations = {
@@ -611,8 +630,7 @@ enigma_switch_locations = {
 for switch in enigma_switch_locations:
     ach = Achievement(enigma[switch][0], enigma[switch][1], enigma[switch][2])
     logic = [
-        main_mode,
-        story_mode,
+        *mode_check("non-challenge"),
         level_id == enigma_switch_locations[switch][0],
         enigma_switch_locations[switch][1],
     ]
@@ -622,7 +640,7 @@ for switch in enigma_switch_locations:
         case _:
             logic.append(switch_pressed)
     ach.add_core(logic)
-    #mySet.add_achievement(ach)
+    mySet.add_achievement(ach)
 
 # Switch test
 buttonAch = Achievement("Button Activated", "Button has been pressed", 0)
@@ -862,7 +880,7 @@ for x in special_clears:
             )]
             logic = all_switches("non-challenge", 10, 7, boxes, 60)
         case "MX-7": # "Clear "MX-7 Pride" by taking the thinner path after the switch
-            logic = special_path("non-challenge", "MX", 7, 180,
+            logic = special_path("non-story", "MX", 7, 180,
                                  bounding(
                                      39.0, 45.0,
                                      5.0, 6.0,
@@ -908,6 +926,7 @@ mySet.add_leaderboard(lb)
 
 # Times
 for (world, level), (hex_code, title, starting_time) in LEVEL_TABLE.items():
+    
     match (world, level):
         case ("M", 1):
             pass # no need for enigma boards
@@ -918,16 +937,16 @@ for (world, level), (hex_code, title, starting_time) in LEVEL_TABLE.items():
             lb.set_start([
                 *mode_check("non-story"),
                 level_check(world, level),
+                time != 0x00,
+                time == starting_time * 60,
+            ])
+            lb.set_cancel([
+                paused == 0x01
+            ])
+            lb.set_submit([
                 (time != starting_time * 60),
                 stage_complete_delta,
                 stage_complete,
-                time != 0x00
-            ])
-            lb.set_cancel([
-                value(0x00) == value(0x01)
-            ])
-            lb.set_submit([
-                value(0x00) == value(0x00)
             ])
             lb.set_value([
                 measured(time)
@@ -941,24 +960,20 @@ for (world, level), (hex_code, title, starting_time) in LEVEL_TABLE.items():
             lb.set_start([
                 *mode_check("non-challenge"),
                 level_check(world, level),
+                time != 0x00,
+                (time == starting_time * 60)
+            ])
+            lb.set_cancel([
+                paused == 0x01
+            ])
+            lb.set_submit([
                 (time != starting_time * 60),
                 stage_complete_delta,
                 stage_complete,
-                time != 0x00
             ])
-
-            lb.set_cancel([
-                value(0x00) == value(0x01)
-            ])
-
-            lb.set_submit([
-                value(0x00) == value(0x00)
-            ])
-
             lb.set_value([
                 measured(time)
             ])
-
             mySet.add_leaderboard(lb)
 
             lb = Leaderboard(f"{title} - Highest Score", "Set the highest score!")
@@ -967,19 +982,19 @@ for (world, level), (hex_code, title, starting_time) in LEVEL_TABLE.items():
             lb.set_start([
                 *mode_check("non-challenge"),
                 level_check(world, level),
+                time != 0x00,
+                time == starting_time * 60,
+            ])
+
+            lb.set_cancel([
+                paused == 0x01
+            ])
+
+            lb.set_submit([
                 (time != starting_time * 60),
                 stage_complete,
                 bit4(goal_state).delta() == 0x00,
                 bit4(goal_state) == 0x01,
-                time != 0x00
-            ])
-
-            lb.set_cancel([
-                value(0x00) == value(0x01)
-            ])
-
-            lb.set_submit([
-                value(0x00) == value(0x00)
             ])
 
             lb.set_value([
