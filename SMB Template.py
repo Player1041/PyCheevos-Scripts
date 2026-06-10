@@ -26,60 +26,15 @@ world_prog = {
     9: ("Side Story",                   "Complete \"Runic Realm\" in Story Mode", 25),
 }
 
-enigma = {
-    1: ("Enigma I",      "Find a strange number in \"5-10 Warp Dreams\". Be sure to write it down for later!", 5),
-    2: ("Enigma II",     "Find a strange number in \"7-6 Upstream\". Be sure to write it down for later!", 5),
-    3: ("Enigma III",    "Find a strange number in \"8-5 Raze\". Be sure to write it down for later!", 3),
-    4: ("Enigma IV",     "Find a strange number in \"10-6 Trick Room\". Be sure to write it down for later!", 5)
-}
-
 extras = {
     "bananas":   ("Can Never Have Enough",              "Collect 999 bananas in Story Mode", 10),
     "mx":        ("Through the Fire and the Flames",    "Clear World EX", 100),
     "colourful": ("Colorful Collection",                "Enter every green and red goal in one session", 25),
-    "enigma":    ("No Turning Back Now!",               "Decipher the secret code and clear the Master level \"Enigma\"", 5)
 }
 
 special_clears = {
-    #"1-1": ("Easy Going",                     "Clear \"1-1 Ease\" with a stage score of 13,000 points or more", 3),
-    #"1-5": ("Hole In One",                    "Clear \"1-5 Flippers\" without pressing the switch", 10),
-    #"1-6": ("Skipped A Beat",                 "Clear \"1-6 Pulse\" without pressing any switches", 5),
-    #"1-7": ("Shifty Bananas",                 "Clear \"1-7 Slopeshift\" after collecting every banana", 3),
-    #"1-10": ("No Margin For Error",           "Clear \"1-10 Margin\" in 5.5 seconds or less", 5),
-    #"2-3": ("Equipment Failure",              "Clear \"2-3 Landing Gear\" without entering more than 1 wormhole", 5),
-    #"2-4": ("Optimal Bounce",                 "Clear \"2-4 Parkour\" without pressing the switch", 3),
-    #"2-6": ("Speed Skating",                  "Clear \"2-6 Kickflip\" in 10 seconds or less", 4),
-    #"2-10": ("Big Monkey",                    "Clear \"2-10 Shrink Ray\" without entering more than 3 wormholes", 5),
-    #"3-1": ("Cycle Of Banana",                "Clear \"3-1 Cycle Hit\" with all 4 banana bunches collected", 5),
-    #"3-5": ("Misalignment",                   "Clear \"3-5 Aligner\" without collecting any bananas", 5),
-    #"3-7": ("Extra Life",                     "Clear \"3-7 Ringfield\" with over 100 bananas collected", 5),
-    #"3-9": ("Victory Royale",                 "Clear \"3-9 Battle Royale\" after hitting all 4 play switches", 5),
-    #"4-1": ("Cutting Through",                "Clear \"4-1 Mandoline\" with a stage score of 11,000 points or more", 5),
-    #"4-2": ("Tightrope Tug Timing",           "Clear \"4-2 Tug\" after taking the thin path", 5),
-    #"4-6": ("King Of Swing",                  "Clear \"4-6 Catenary\" after collecting all bananas", 5),
-    ##"4-8": ("Button Bouncer",                 "On \"4-8 Turbine\", hit all 3 switches within 5 seconds of each other", 5),
-    #"5-3": ("Trampoline Technique",           "Clear \"5-3 Jumpplex\" in 15 seconds or less", 5),
-    #"5-6": ("Bring It Around Town",           "Clear \"5-6 Rotary\" with all 5 banana bunches collected", 3),
-    #"5-8": ("Bullseye",                       "Clear \"5-8 Range\" going over 400mph", 10),
-    #"5-9": ("Gonna Miss My Flight",           "Clear \"5-9 Departure\" in 30 seconds or less", 5),
-    #"6-3": ("Rookie Mistake",                 "Clear \"6-3 Rook\" without collecting any bananas", 10),
-    #"6-4": ("Rigid Ramps",                    "Clear \"6-4 Rigidify\" with both banana bunches collected", 5),
-    #"6-6": ("Pyramid Jumps",                  "Clear \"6-6 Pyramid Run\" in 7 seconds or less", 5),
-    #"6-7": ("No Assembly Required",           "Clear \"6-7 Assembly\" without pressing any switches", 5),
-    "7-1": ("Leap Of Faith",                  "Clear \"7-1 Ikaruga\" collecting 1 banana at most", 5),
-    #"7-3": ("Rule Of Thirds",                 "Clear \"7-3 Polarity\" before the stage flips over for a 4th time", 5),
-    #"7-5": ("Perfect Cherry Blossom",         "Clear \"7-5 Phantasm\" with all bananas collected", 10),
-    #"7-8": ("High Speed Castle Siege",        "Clear \"7-8 Siege\" going over 150mph", 3),
-    #"8-2": ("Crossing The Streams",           "Clear \"8-2 Recoil\" with all 3 banana bunches collected", 5),
-    #"8-4": ("Sharp Decline",                  "Clear \"8-4 Gradient Descent\" without entering a wormhole", 4),
-    #"8-8": ("Potassium Pipe",                 "Clear \"8-8 Painted Pipe\" with a stage score of 6,500 points or more", 4),
-    "8-9": ("I Can Imagine Anything",         "Clear all 8 different layouts of \"8-9 Visionary\" in one session", 5),
-    #"8-10": ("Quick Inspection",              "Clear \"8-10 Factory\" in 7 seconds or less", 5),
-    #"9-2": ("Delicious Duo",                  "Clear \"9-2 Twisty Triad\" with both banana bunches collected", 5),
-    #"9-6": ("Turbocharger",                   "Clear \"9-6 Axle\" with the fast forward switch active", 5),
-    #"9-7": ("Banana Of the Colossus",         "Clear \"9-7 Colossus\" with all bananas collected", 10),
-    #"10-7": ("Speeding Snake",                "Clear \"10-7 Ouroboros\" with the fast forward switch active", 10),
-    #"MX-7": ("I'll Never Swallow My Pride!",  "Clear \"MX-7 Pride\" by taking the thinner path after the switch", 25),
+    "1-1": ("Easy Going",                     "Clear \"1-1 Ease\" with a stage score of 13,000 points or more", 3),
+    "1-5": ("Hole In One",                    "Clear \"1-5 Flippers\" without pressing the switch", 10)
 }
 
 mask = value(0x1fffffff)
@@ -114,11 +69,6 @@ story_mode = (byte(0x0054df27) == 0x00)
 challenge_mode = (byte(0x0054df27) == 0x01)
 practice_mode = (byte(0x0054df27) == 0x02)
 
-switch_pressed = [
-    bit2(0x0056e36a).delta() == 0x00,
-    bit2(0x0056e36a) == 0x01
-]
-
 x_coord = float32_be(0x005bc9a4)
 y_coord = float32_be(0x005bc9a8)
 z_coord = float32_be(0x005bc9ac)
@@ -142,118 +92,28 @@ def bounding(x1, x2, y1, y2, z1, z2, include_y: bool = True):
                 and_next(z_coord <= z2)
             ]
 
+# world, level, hex, name, starting time
 LEVEL_TABLE: dict[tuple[Union[int, str], int], tuple[int, str, int]] = {
-    (1,  1): (0xc9,  "1-1 Ease", 60),
-    (1,  2): (0xca,  "1-2 Interceptor", 60),
-    (1,  3): (0xcb,  "1-3 Cornercraft", 60),
-    (1,  4): (0xcc,  "1-4 Expedition", 60),
-    (1,  5): (0x01,  "1-5 Flippers", 60),
-    (1,  6): (0x02,  "1-6 Pulse", 60),
-    (1,  7): (0x03,  "1-7 Slopeshift", 60),
-    (1,  8): (0x04,  "1-8 Safety Pipe", 60),
-    (1,  9): (0x05,  "1-9 Stair Valley", 60),
-    (1, 10): (0x06,  "1-10 Margin", 60),
-    (2,  1): (0x07,  "2-1 Hidden Hills", 60),
-    (2,  2): (0x08,  "2-2 Emergency Brake", 60),
-    (2,  3): (0x09,  "2-3 Landing Gear", 60),
-    (2,  4): (0x0a,  "2-4 Parkour", 60),
-    (2,  5): (0x0b,  "2-5 Whisk", 60),
-    (2,  6): (0x0c,  "2-6 Kickflip", 60),
-    (2,  7): (0x0d,  "2-7 Multi Spring", 60),
-    (2,  8): (0x0e,  "2-8 Cubbyholes", 30),
-    (2,  9): (0x167,  "2-9 Unwind", 60),
-    (2, 10): (0x10,  "2-10 Shrink Ray", 90),
-    (3,  1): (0xe7,  "3-1 Cycle Hit", 90),
-    (3,  2): (0xe8,  "3-2 Boost Bridges", 60),
-    (3,  3): (0xe9,  "3-3 Suspension", 60),
-    (3,  4): (0xea,  "3-4 Quaketray", 60),
-    (3,  5): (0xeb,  "3-5 Aligner", 60),
-    (3,  6): (0xec,  "3-6 Master of None", 90),
-    (3,  7): (0xed,  "3-7 Ringfield", 120),
-    (3,  8): (0xee,  "3-8 Trinity", 60),
-    (3,  9): (0xef,  "3-9 Battle Royale", 180),
-    (3, 10): (0x11,  "3-10 Actual Guillotine", 60),
-    (4,  1): (0x12,  "4-1 Mandoline", 60),
-    (4,  2): (0x13,  "4-2 Tug", 60),
-    (4,  3): (0x14,  "4-3 Whirlers", 60),
-    (4,  4): (0x15,  "4-4 Diaphragm", 60),
-    (4,  5): (0x16,  "4-5 Roundabout", 60),
-    (4,  6): (0x17,  "4-6 Catenary", 60),
-    (4,  7): (0x18,  "4-7 Pattern Prism", 60),
-    (4,  8): (0x19,  "4-8 Turbine", 120),
-    (4,  9): (0x1a,  "4-9 Piercers", 60),
-    (4, 10): (0x1b,  "4-10 Emitter", 60),
-    (5,  1): (0x1c,  "5-1 Dragonfly", 60),
-    (5,  2): (0x1d,  "5-2 Sway", 60),
-    (5,  3): (0x1e,  "5-3 Jumpplex", 60),
-    (5,  4): (0x1f,  "5-4 Drop of Doom", 90),
-    (5,  5): (0x20,  "5-5 Perimeter", 60),
-    (5,  6): (0x21,  "5-6 Rotary", 60),
-    (5,  7): (0x22,  "5-7 Snakeskin", 60),
-    (5,  8): (0x23,  "5-8 Range", 60),
-    (5,  9): (0x24,  "5-9 Departure", 60),
-    (5, 10): (0x25,  "5-10 Warp Dreams", 180),
-    (6,  1): (0x26,  "6-1 Tripwire", 60),
-    (6,  2): (0x27,  "6-2 Equilibrium", 60),
-    (6,  3): (0x28,  "6-3 Rook", 60),
-    (6,  4): (0x29,  "6-4 Rigidify", 60),
-    (6,  5): (0x2a,  "6-5 Binary Launchers", 30),
-    (6,  6): (0x2b,  "6-6 Pyramid Run", 60),
-    (6,  7): (0x2c,  "6-7 Assembly", 90),
-    (6,  8): (0x2d,  "6-8 Circus", 60),
-    (6,  9): (0x2e,  "6-9 Seismic", 90),
-    (6, 10): (0x2f,  "6-10 Slot Machine", 60),
-    (7,  1): (0x119, "7-1 Ikaruga", 60),
-    (7,  2): (0x11a, "7-2 Focus Breaker", 60),
-    (7,  3): (0x11b, "7-3 Polarity", 60),
-    (7,  4): (0x11c, "7-4 Carpets", 30),
-    (7,  5): (0x11d, "7-5 Phantasm", 120),
-    (7,  6): (0x11e, "7-6 Upstream", 60),
-    (7,  7): (0x11f, "7-7 Rebuild", 60),
-    (7,  8): (0x120, "7-8 Seige", 60),
-    (7,  9): (0x121, "7-9 Albatross", 90),
-    (7, 10): (0x30,  "7-10 Gaokao", 120),
-    (8,  1): (0x31,  "8-1 Lock On", 60),
-    (8,  2): (0x32,  "8-2 Recoil", 60),
-    (8,  3): (0x33,  "8-3 Derelict", 120),
-    (8,  4): (0x34,  "8-4 Gradient Descent", 60),
-    (8,  5): (0x35,  "8-5 Raze", 90),
-    (8,  6): (0x36,  "8-6 Gyroscope", 60),
-    (8,  7): (0x37,  "8-7 Revision", 120),
-    (8,  8): (0x38,  "8-8 Painted Pipe", 30),
-    (8,  9): (0x39,  "8-9 Visionary", 60),
-    (8, 10): (0x3a,  "8-10 Factory", 60),
-    (9,  1): (0x3b,  "9-1 Demolition", 60),
-    (9,  2): (0x3c,  "9-2 Twisty Triad", 60),
-    (9,  3): (0x3d,  "9-3 Spinways", 60),
-    (9,  4): (0x3e,  "9-4 Strum", 60),
-    (9,  5): (0x3f,  "9-5 Antagonizer", 120),
-    (9,  6): (0x40,  "9-6 Axle", 60),
-    (9,  7): (0x41,  "9-7 Colossus", 180),
-    (9,  8): (0x42,  "9-8 Fallout Zone", 60),
-    (9,  9): (0x43,  "9-9 Lightspeed", 60),
-    (9, 10): (0x44,  "9-10 Apparatus", 300),
-    (10,  1): (0x155, "10-1 Exodus", 120),
-    (10,  2): (0x156, "10-2 Pandora's Box", 180),
-    (10,  3): (0x157, "10-3 Genesis", 60),
-    (10,  4): (0x158, "10-4 Ausdauer", 120),
-    (10,  5): (0x159, "10-5 Intermezzo", 60),
-    (10,  6): (0x15a, "10-6 Trick Room", 300),
-    (10,  7): (0x15b, "10-7 Ouroboros", 60),
-    (10,  8): (0x15c, "10-8 Red Sea", 120),
-    (10,  9): (0x15d, "10-9 Shadow Tag", 60),
-    (10, 10): (0x15e, "10-10 Curtain Call", 240),
-    ("M", 1):   (0x141, "M-1 Enigma", 180),
-    ("MX", 1):  (0xD3, "MX-1 Master of All", 120),
-    ("MX", 2):  (0xD4, "MX-2 Maelstrom", 60),
-    ("MX", 3):  (0xD5, "MX-3 Tartarus", 180),
-    ("MX", 4):  (0xD6, "MX-4 Sisyphus", 180),
-    ("MX", 5):  (0xD7, "MX-5 Acheron", 180),
-    ("MX", 6):  (0xD8, "MX-6 Styx", 240),
-    ("MX", 7):  (0xD9, "MX-7 Pride", 180),
-    ("MX", 8):  (0xDA, "MX-8 Babel", 240),
-    ("MX", 9):  (0xDB, "MX-9 Gauntlet", 180),
-    ("MX", 10): (0xDC, "MX-10 The Grand Finale", 300)
+    ("B",  1):  (0xc9,  "B-1 Ease", 60),
+    ("B",  2):  (0xca,  "B-2 Interceptor", 60),
+    ("B",  3):  (0xcb,  "B-3 Cornercraft", 60),
+    ("B",  4):  (0xcc,  "B-4 Expedition", 60),
+    ("B",  5):  (0x01,  "B-5 Flippers", 60),
+    ("B",  6):  (0x02,  "B-6 Pulse", 60),
+    ("B",  7):  (0x03,  "B-7 Slopeshift", 60),
+    ("B",  8):  (0x04,  "B-8 Safety Pipe", 60),
+    ("B",  9):  (0x05,  "B-9 Stair Valley", 60),
+    ("B", 10):  (0x06,  "B-10 Margin", 60),
+    ("BX",  1): (0x07,  "BX-1 Hidden Hills", 60),
+    ("BX",  2): (0x08,  "BX-2 Emergency Brake", 60),
+    ("BX",  3): (0x09,  "BX-3 Landing Gear", 60),
+    ("BX",  4): (0x0a,  "BX-4 Parkour", 60),
+    ("BX",  5): (0x0b,  "BX-5 Whisk", 60),
+    ("BX",  6): (0x0c,  "BX-6 Kickflip", 60),
+    ("BX",  7): (0x0d,  "BX-7 Multi Spring", 60),
+    ("BX",  8): (0x0e,  "BX-8 Cubbyholes", 30),
+    ("BX",  9): (0x167, "BX-9 Unwind", 60),
+    ("BX", 10): (0x10,  "BX-10 Shrink Ray", 90)
 }
  
 def story_level(world: int | str, level: int) -> tuple[int, str, int]:
@@ -524,107 +384,6 @@ def switches_within_time(mode, world, level, starting_time, time_between_switche
 
     return logic
 
-def visionary(mode, world, level, starting_time):
-    logic = [
-        *mode_check(mode),
-        level_check(world, level),
-    ]
-
-    lll = bounding(
-        -2.0, 2.0,
-        -5.0, -4.0,
-        -183.0, -179.0
-    )
-
-    llr = bounding(
-        -30.0, -26.0,
-        -6.5, -5.5,
-        -95.0, -92.0
-    )
-
-    lrr = bounding(
-        0.0, 4.0,
-        -3.0, -2.0,
-        -68.0, -63.0
-    )
-
-    rrr = bounding(
-        -4.0, 0.0,
-        -2.5, -1.5,
-        -65.0, -62.0
-    )
-
-    rrl = bounding(
-        -2.0, 2.0,
-        -1.0, 0.0,
-        -115.0, -112.0
-    )
-
-    rll = bounding(
-        -2.0, 2.0,
-        -7.0, -6.0,
-        -160.0, -156.0
-    )
-
-    lrl = bounding(
-        -20.0, -16.0,
-        -6.0, -5.0,
-        -88.0, -85.0
-    )
-
-    rlr = bounding(
-        -2.0, 2.0,
-        -8.5, -7.5,
-        -126.0, -124.0
-    )
-
-    boxes = [
-        lll, llr, lrr, rrr, rrl, rll, lrl, rlr
-    ]
-
-    for box in boxes:
-        logic.extend(box)
-        logic.append(and_next(stage_complete_delta))
-        logic.append(add_hits(stage_complete).with_hits(1))
-
-    logic.append(measured(value(0x00) == value(0x01)).with_hits(8))
-    return logic
-
-enigma_switch_locations = {
-    1: (story_level(5, 10)[0], bounding(34.0, 38.7, 
-                                        40.0, 41.0, 
-                                        -1.5, 1.5)),
-    2: (story_level(7, 6)[0], bounding(-16.35, -13.5,
-                                       3.0, 4.0, 
-                                       -91.40, -88.5,)),
-    3: (story_level(8, 5)[0], bounding(100.4, 103.25, 
-                                       1.0, 2.0, 
-                                       -1.4, 1.4)),
-    4: (story_level(10, 6)[0], bounding(-60.0, -54.0, 
-                                        5.0, 6.0, 
-                                        -16.2, -8.5)),
-}
-
-for switch in enigma_switch_locations:
-    ach = Achievement(enigma[switch][0], enigma[switch][1], enigma[switch][2])
-    logic = [
-        *mode_check("non-challenge"),
-        level_id == enigma_switch_locations[switch][0],
-        enigma_switch_locations[switch][1],
-    ]
-    match switch:
-        case 4:
-            logic.append(bananas_collected != bananas_collected.delta())
-        case _:
-            logic.append(switch_pressed)
-    ach.add_core(logic)
-    mySet.add_achievement(ach)
-
-# Switch test
-buttonAch = Achievement("Button Activated", "Button has been pressed", 0)
-buttonAch.add_core(switch_pressed)
-mySet.add_achievement(buttonAch)
-
 for world, (title, description, points) in world_prog.items():
     ach = Achievement(title, description, points)
     logic = [
@@ -690,13 +449,6 @@ for x in extras:
                 clear_level_type(9, 3, "green"),
                 measured(value(0x00) == value(0x01)).with_hits(9)
             ]    
-        case "enigma":
-            logic = [
-                *mode_check("non-story"),
-                level_check("M", 1),
-                stage_complete_delta,
-                stage_complete,
-            ]
     ach.add_core(logic)
     mySet.add_achievement(ach)
 
